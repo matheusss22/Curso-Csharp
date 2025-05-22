@@ -8,10 +8,7 @@ public class HourContract
     public double ValuePerHour { get; set; }
     public int Hours { get; set; }
 
-    public HourContract()
-    {
-
-    }
+    public HourContract() { }
 
     public HourContract(DateTime date, double valuePerHour, int hours)
     {
@@ -20,8 +17,5 @@ public class HourContract
         Hours = hours;
     }
 
-    public double TotalValue()
-    {
-        return Hours * ValuePerHour;
-    }
+    public double TotalValue() { return Hours * ValuePerHour; }
 }

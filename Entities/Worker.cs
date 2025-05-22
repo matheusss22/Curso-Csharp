@@ -12,10 +12,7 @@ public class Worker
     public Department Department { get; set; }
     public List<HourContract> Contracts { get; set; } = new List<HourContract>();
 
-    public Worker()
-    {
-
-    }
+    public Worker() { }
 
     public Worker(string name, WorkerLevel level, double baseSalary, Department department)
     {
@@ -25,28 +22,22 @@ public class Worker
         Department = department;
     }
 
-    public void AddContract(HourContract hourContract)
-    {
-        Contracts.Add(hourContract);
-    }
+    public void AddContract(HourContract hourContract) { Contracts.Add(hourContract); }
 
-    public void RemoveContract(HourContract hourContract)
-    {
-        Contracts.Remove(hourContract);
-    }
+    public void RemoveContract(HourContract hourContract) { Contracts.Remove(hourContract); }
 
-    public double income(int year, int month)
+    public double income(int month, int year)
     {
         double sum = 0;
 
         foreach (var hourContract in Contracts)
         {
-            if (hourContract.Date.Year == year && hourContract.Date.Month == month)
+            if (hourContract.Date.Month == month && hourContract.Date.Year == year)
             {
                 sum += hourContract.TotalValue();
             }
         }
 
-        return sum;
+        return BaseSalary + sum;
     }
 }
