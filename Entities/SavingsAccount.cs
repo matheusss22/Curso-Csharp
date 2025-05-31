@@ -3,21 +3,21 @@ using System.Text;
 
 namespace Workspace.Entities;
 
-public class BusinessAccount : Account
+public class SavingsAccount : Account
 {
-    public double LoanLimit { get; set; }
+    public double InterestRate { get; set; }
 
-    public BusinessAccount() { }
+    public SavingsAccount() { }
 
-    public BusinessAccount(int number, string holder, double balance, double loanLimit)
+    public SavingsAccount(int number, string holder, double balance, double interestRate)
         : base(number: number, holder: holder, balance: balance)
     {
-        LoanLimit = loanLimit;
+        InterestRate = interestRate;
     }
 
-    public void Loan(double amount)
+    public void UpdateBalance()
     {
-        if (amount <= LoanLimit) { Balance += amount; }
+        Balance += Balance * InterestRate;
     }
 
     public override string ToString()
@@ -29,8 +29,8 @@ public class BusinessAccount : Account
         sb.AppendLine(Holder);
         sb.Append("Balance = ");
         sb.AppendLine(Balance.ToString("F2", System.Globalization.CultureInfo.InstalledUICulture));
-        sb.Append("LoanLimit = ");
-        sb.AppendLine(LoanLimit.ToString("F2", System.Globalization.CultureInfo.InstalledUICulture));
+        sb.Append("InterestRate = ");
+        sb.AppendLine(InterestRate.ToString("F2", System.Globalization.CultureInfo.InstalledUICulture));
 
         return sb.ToString();
     }

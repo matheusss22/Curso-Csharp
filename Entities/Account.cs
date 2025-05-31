@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 
 namespace Workspace.Entities;
 
@@ -20,5 +21,18 @@ public class Account
     public void Withdraw(double amount) { Balance -= amount; }
 
     public void Deposit(double amount) { Balance += amount; }
+
+    public override string ToString()
+    {
+        StringBuilder sb = new StringBuilder("");
+        sb.Append("Number = ");
+        sb.AppendLine(Number.ToString());
+        sb.Append("Holder = ");
+        sb.AppendLine(Holder);
+        sb.Append("Balance = ");
+        sb.AppendLine(Balance.ToString("F2", System.Globalization.CultureInfo.InstalledUICulture));
+
+        return sb.ToString();
+    }
 
 }
