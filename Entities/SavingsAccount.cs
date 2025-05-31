@@ -20,6 +20,12 @@ public class SavingsAccount : Account
         Balance += Balance * InterestRate;
     }
 
+    public override void Withdraw(double amount)
+    {
+        base.Withdraw(amount);
+        Balance -= 2.00;
+    }
+
     public override string ToString()
     {
         StringBuilder sb = new StringBuilder("");
