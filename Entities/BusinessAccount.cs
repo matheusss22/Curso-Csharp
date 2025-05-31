@@ -3,7 +3,7 @@ using System.Text;
 
 namespace Workspace.Entities;
 
-public class BusinessAccount : Account
+public sealed class BusinessAccount : Account
 {
     public double LoanLimit { get; set; }
 
