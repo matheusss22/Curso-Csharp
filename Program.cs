@@ -1,6 +1,6 @@
 using System;
-using System.Globalization;
 using Workspace.Entities;
+using System.Globalization;
 
 namespace Workspace;
 
@@ -8,48 +8,51 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        // Create a list of employees
-        List<Employee> employees = [];
+        List<Product> products = [];
 
-        // Get user input for number of employees
-        Console.Write("Enter the number of employees: ");
+        Console.Write("Enter the number of products: ");
         int n = int.Parse(Console.ReadLine());
 
         for (int i = 1; i <= n; i++)
         {
-            // Get user input for employee type
-            Console.WriteLine($"Employee #{i} data: ");
-            Console.Write("Outsourced (y/n)? ");
-            char userInput = char.Parse(Console.ReadLine());
-            bool isOutsourced = userInput == 'y';
+            Console.WriteLine("");
+            Console.WriteLine($"Product #{i} data:");
 
-            // Get user input for employee details
+            Console.Write("Common, used or imported (c/u/i)? ");
+            char op = char.Parse(Console.ReadLine());
+
             Console.Write("Name: ");
             string name = Console.ReadLine();
-            Console.Write("Hours: ");
-            int hours = int.Parse(Console.ReadLine());
-            Console.Write("Value per hour: ");
-            double valuePerHour = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
 
-            // Create employee object based on user input
-            if (isOutsourced)
+            Console.Write("Price: ");
+            double price = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+
+            switch (op)
             {
-                Console.Write("Additional charge: ");
-                double additionalCharge = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
-                employees.Add(new OutsourcedEmployee(name, hours, valuePerHour, additionalCharge));
-            }
-            else
-            {
-                employees.Add(new Employee(name, hours, valuePerHour));
+                case 'c':
+                    products.Add(new Product(name, price));
+                    break;
+                case 'u':
+                    Console.Write("Manufacture date (DD/MM/YYYY): ");
+                    DateTime manufactureDate = DateTime.Parse(Console.ReadLine());
+                    products.Add(new UsedProduct(name, price, manufactureDate));
+                    break;
+                case 'i':
+                    Console.Write("Customs fee: ");
+                    double customsFee = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+                    products.Add(new ImportedProduct(name, price, customsFee));
+                    break;
+
+                default: break;
             }
         }
 
-        Console.WriteLine("PAYMENTS:");
+        Console.WriteLine("");
+        Console.WriteLine("PRICE TAGS:");
 
-        // Print employee payments
-        foreach (var employee in employees)
+        foreach (var product in products)
         {
-            Console.Write(employee);
+            Console.Write(product.PriceTag());
         }
     }
 }
