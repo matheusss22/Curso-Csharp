@@ -1,58 +1,41 @@
 using System;
-using Workspace.Entities;
 using System.Globalization;
+using Workspace.Entities;
 
 namespace Workspace;
 
-public class Program
+class Program
 {
-    public static void Main(string[] args)
+    static void Main(string[] args)
     {
-        List<Product> products = [];
+        List<Account> list = [];
 
-        Console.Write("Enter the number of products: ");
-        int n = int.Parse(Console.ReadLine());
+        list.Add(new SavingsAccount(1001, "Alex", 500.00, 0.01));
+        list.Add(new BusinessAccount(1002, "Maria", 500.00, 400.00));
+        list.Add(new SavingsAccount(1003, "Bob", 500.00, 0.01));
+        list.Add(new BusinessAccount(1004, "Ana", 500.00, 500.00));
 
-        for (int i = 1; i <= n; i++)
+        double sum = 0.0;
+
+        foreach (var acc in list)
         {
-            Console.WriteLine("");
-            Console.WriteLine($"Product #{i} data:");
-
-            Console.Write("Common, used or imported (c/u/i)? ");
-            char op = char.Parse(Console.ReadLine());
-
-            Console.Write("Name: ");
-            string name = Console.ReadLine();
-
-            Console.Write("Price: ");
-            double price = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
-
-            switch (op)
-            {
-                case 'c':
-                    products.Add(new Product(name, price));
-                    break;
-                case 'u':
-                    Console.Write("Manufacture date (DD/MM/YYYY): ");
-                    DateTime manufactureDate = DateTime.Parse(Console.ReadLine());
-                    products.Add(new UsedProduct(name, price, manufactureDate));
-                    break;
-                case 'i':
-                    Console.Write("Customs fee: ");
-                    double customsFee = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
-                    products.Add(new ImportedProduct(name, price, customsFee));
-                    break;
-
-                default: break;
-            }
+            sum += acc.Balance;
         }
 
-        Console.WriteLine("");
-        Console.WriteLine("PRICE TAGS:");
+        Console.WriteLine("Total balance = " + sum.ToString("F2", CultureInfo.InvariantCulture));
 
-        foreach (var product in products)
+        foreach (var acc in list)
         {
-            Console.Write(product.PriceTag());
+            acc.Withdraw(10.0);
+        }
+
+        foreach (var acc in list)
+        {
+            Console.WriteLine("Update balance for account"
+                + acc.Number
+                + ": "
+                + acc.Balance.ToString("F2", CultureInfo.InvariantCulture)
+            );
         }
     }
 }
