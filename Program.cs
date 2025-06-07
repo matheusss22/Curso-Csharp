@@ -1,26 +1,35 @@
 using System;
+using System.IO;
 
 namespace Workspace;
 
-class Program
+public class ProcessFile
 {
-    static void Main(string[] args)
+    public static void Main()
     {
+        FileStream fs = null;
+
         try
         {
-            int n1 = int.Parse(Console.ReadLine());
-            int n2 = int.Parse(Console.ReadLine());
-            int result = n1 / n2;
-            Console.WriteLine(result);
+            fs = new FileStream(@"C:\temp\data.txt", FileMode.Open);
+            StreamReader sr = new StreamReader(fs);
+            string line = sr.ReadLine();
+            Console.WriteLine(line);
         }
-        catch (DivideByZeroException)
+        catch (DirectoryNotFoundException e)
         {
-            Console.WriteLine("Division by zero is not allwed");
+            Console.WriteLine(e.Message);
         }
-        catch (FormatException e)
+        catch (FileNotFoundException e)
         {
-            Console.WriteLine("Format error! " + e.Message);
+            Console.WriteLine(e.Message);
         }
-
+        finally
+        {
+            if (fs != null)
+            {
+                fs.Close();
+            }
+        }
     }
 }
