@@ -16,7 +16,7 @@ class Program
         for (int i = 1; i <= n; i++)
         {
             Console.WriteLine($"Tax payer #{i} data:");
-            Console.Write($"Individual orcompany(i/c)? ");
+            Console.Write($"Individual or company(i/c)? ");
             char op = char.Parse(Console.ReadLine());
 
             Console.Write("Name: ");
@@ -32,7 +32,7 @@ class Program
             }
             else if (op == 'c')
             {
-                Console.Write("Numberofemployees: ");
+                Console.Write("Number of employees: ");
                 int numberOfEmployees = int.Parse(Console.ReadLine());
                 taxPayers.Add(new Company(name, anualIncome, numberOfEmployees));
             }
