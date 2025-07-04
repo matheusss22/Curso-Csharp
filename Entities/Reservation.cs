@@ -1,4 +1,5 @@
 using System;
+using Workspace.Entities.Exceptions;
 
 namespace Workspace.Entities;
 
@@ -10,6 +11,10 @@ public class Reservation
 
     public Reservation(int roomNumber, DateTime checkIn, DateTime checkOut)
     {
+
+        if (checkOut <= checkIn)
+            throw new DomainException("Check-out date must be after check-in");
+
         RoomNumber = roomNumber;
         CheckIn = checkIn;
         CheckOut = checkOut;
@@ -21,23 +26,19 @@ public class Reservation
         return (int)duration.TotalDays;
     }
 
-    public string UpdateDates(DateTime checkIn, DateTime checkOut)
+    public void UpdateDates(DateTime checkIn, DateTime checkOut)
     {
         DateTime now = DateTime.Now;
 
         if (checkIn < now || checkOut < now)
-        {
-            return "Reservation dates for update must be future dates";
-        }
+            throw new DomainException("Reservation dates for update must be future dates");
+
 
         if (checkOut <= checkIn)
-        {
-            return "Check-out date must be after check-in";
-        }
+            throw new DomainException("Check-out date must be after check-in");
 
         CheckIn = checkIn;
         CheckOut = checkOut;
-        return null;
     }
 
     public override string ToString()
