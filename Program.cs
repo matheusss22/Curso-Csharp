@@ -33,5 +33,13 @@ public class ProcessFile
         {
             Console.Write("Error in reservation: " + e.Message);
         }
+        catch (FormatException e)
+        {
+            Console.Write("Format error: " + e.Message);
+        }
+        catch (Exception e)
+        {
+            Console.Write("Unexpected error: " + e.Message);
+        }
     }
 }
