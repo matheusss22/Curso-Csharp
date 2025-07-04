@@ -21,10 +21,23 @@ public class Reservation
         return (int)duration.TotalDays;
     }
 
-    public void UpdateDates(DateTime checkIn, DateTime checkOut)
+    public string UpdateDates(DateTime checkIn, DateTime checkOut)
     {
+        DateTime now = DateTime.Now;
+
+        if (checkIn < now || checkOut < now)
+        {
+            return "Reservation dates for update must be future dates";
+        }
+
+        if (checkOut <= checkIn)
+        {
+            return "Check-out date must be after check-in";
+        }
+
         CheckIn = checkIn;
         CheckOut = checkOut;
+        return null;
     }
 
     public override string ToString()

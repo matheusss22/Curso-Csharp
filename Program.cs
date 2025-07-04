@@ -31,15 +31,11 @@ public class ProcessFile
             Console.Write("Check-out date (dd/MM/yyyy): ");
             checkOut = DateTime.Parse(Console.ReadLine());
 
-            DateTime now = DateTime.Now;
+            string error = reservation.UpdateDates(checkIn, checkOut);
 
-            if (checkIn < now || checkOut < now)
+            if (error != null)
             {
-                Console.WriteLine("Error in reservation: Reservation dates for update must be future dates");
-            }
-            else if (checkOut <= checkIn)
-            {
-                Console.WriteLine("Error in reservation: Check-out date must be after check-in");
+                Console.Write("Error in reservation: " + error);
             }
             else
             {
