@@ -4,7 +4,7 @@ using Workspace.Entities.Exceptions;
 
 namespace Workspace;
 
-public class ProcessFile
+public class Program
 {
     public static void Main()
     {
